@@ -1,0 +1,50 @@
+Why Convolutional Neural Network?
+	Before CNN people used various Machine Learning Models for digit recognition like SVM, KNN, Logistic Regression to classify the images. In these algorithms the pixels were used i.e. by convention 28*28 pixels that generates 784 features.
+
+	But the problem using these algorithms was that we lose a lot of SPACIAL INTERACTION between PIXELS. We can still handpick features out of the image similar to what a convolution network does, but that would be more time intensive.
+
+	Convolution layers uses information from the adjacent pixels to down sample the image into features by convoltion and then use prediction layes to predict the target value.
+
+Convolutional Layer:
+	Refer to this page:
+		https://towardsdatascience.com/convolution-neural-networks-a-beginners-guide-implementing-a-mnist-hand-written-digit-8aa60330d022
+
+	We use multiple filters or kernel that run over the image and compute the dot product. Each filter extracts different features from the image.
+
+		[IMAGE PIXEL MATRIX] * [FILTER(OR KERNEL) MATRIX] = FEATURE MATRIX
+
+
+STEPS:
+	model = Sequential()
+	model.add(Conv2D(28, kernel_size = (3, 3), input_shape = input_shape))
+		Convolution explained above.
+
+
+	model.add(MaxPooling2D(pool_size = (2, 2)))
+		Max pooling layer helps reduce the spatial size of the convolved features and also helps reduce over-fitting.
+		We take the max value from the region of the input overlapped by the kernel.
+		We can also do average pooling where we take the average value from the region of the input overlapped by the kernel. But Max pooling helps reduce noise by discarding noisy activations.
+
+	model.add(Flatten())
+		Converts the matrix into a single array.
+
+	model.add(Dense(128, activation = tf.nn.relu))
+		Activation functions introduce non-linearity to the model which allows it to learn complex functional mappings. Different activation functions are sigmoid, tanh, RelU, etc.
+		RelU Rectified Linear Unit
+			def ReLU(x):
+			  if x>0:
+				  return x
+			  else: 
+			    return 0
+		There are many other activation functions but RelU is the most used activation function for many kinds of neural networks as because of it’s linear behavior it is easier to train and it often achieves better performance.
+
+	model.add(Dropout(0.2))
+		When training neural network by updating each of its weights, it might become too dependent on the dataset. Therefore, when the model makes a prediction it will not give satisfactory results. This is known as over-fitting.
+		Suppose, if a student of mathematics learns only one chapter of a book and then takes a test on the whole syllabus, he will probably fail.
+			Refer:
+				https://www.educative.io/edpresso/what-is-dropout-in-neural-networks
+
+	model.add(Dense(10, activation = tf.nn.softmax))
+		In short softmax function here is basically the output layer where it outputs the values in 10 (0-9).
+		The softmax function takes as input a vector z of K real numbers, and normalizes it into a probability distribution consisting of K probabilities proportional to the exponentials of the input numbers.
+		That is, prior to applying softmax, some vector components could be negative, or greater than one; and might not sum to 1; but after applying softmax, each component will be in the interval {\displaystyle (0,1)}(0,1), and the components will add up to 1, so that they can be interpreted as probabilities. Furthermore, the larger input components will correspond to larger probabilities.

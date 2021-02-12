@@ -1,0 +1,11 @@
+OCR -- Optical Character Recognition
+	It is about recognition of machine printed characters like in books.
+	It is less complx considering the fact of less variaations
+	It is easier to achieve high level of accuracy with less variations and ignoring 
+		distorions in background of an image, they mostly use NN like CNN, LSTM, RNN 
+		for detection.
+
+HWCR -- Hand Written Character Recognition
+	It specifies on recognizing characters written by human beings.
+	It is way more complex due to the huge variety of styles we humans write.
+	It is difficult to achieve high accuracy and precision using SVM & NN.
